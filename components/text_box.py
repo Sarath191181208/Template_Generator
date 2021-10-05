@@ -17,11 +17,13 @@ class CustomText(tk.Text):
         self.tk.createcommand(self._w, self._proxy)
         
         self.tags = [
-                    ("copy",        "#FF0287", None ),
-                    ("directory",   "#2185e8", None ),
-                    ("comment",     "#06d420", None ),
-                    ("src",         "#f6a440", None ),
-                    ("des"        , "#d000fa", None )
+                    # tagname       text color     background color
+                    ("copy",        "#FF0287",      None ),
+                    ("directory",   "#2185e8",      None ),
+                    ("comment",     "#06d420",      None ),
+                    ("src",         "#f6a440",      None ),
+                    ("des"        , "#d000fa",      None ),
+                    ("error",          None  ,      "#ffbbbb")
                 ]
         self.configure_colors()
 
@@ -86,64 +88,42 @@ class CustomText(tk.Text):
 
     def update(self,e):
         self.clear()
-        txt = self.get(1.0,END)
+        txt = self.get(1.0,END).split('\n')
 
-        line_count = 1
-        word_count = 0
+        for line_cnt, line in enumerate(txt):
+            word = ""
+            word_count = 0
+            idx = 0
 
-        comment = False
-        comment_start_count = 0
+            while(idx<len(line)):
+                char = line[idx]
+                word += char.lower()
+                word_count += 1
 
-        copy_placed = False
-        src_placed = False
-        # is_copy = False
+                if char == "/":
+                    self.highlight_text(start=f"{line_cnt+1}.{word_count-len(word)}", end=f"{line_cnt+1}.{word_count}", tag="directory")
 
-        word = ""
-        for idx,char in enumerate(txt):
-            word += char.lower()
-            word_count += 1
+                if char == "#":
+                    self.highlight_text(start=f"{line_cnt+1}.{word_count-1}", end=f"{line_cnt+1}.end", tag="comment")
+                    idx = len(line)
 
-            if not comment and char == "/":
-                self.highlight_text(start=f"{line_count}.{word_count-len(word)}", end=f"{line_count}.{word_count}", tag="directory")
-                
-            if char == "#":
-                comment = True
-                comment_start_count = word_count-1
+                if word == 'copy':
+                    self.highlight_text(start=f"{line_cnt+1}.{word_count-4}", end=f"{line_cnt+1}.{word_count}", tag="copy")
+                    # i = idx+1
+                    idx += 1
+                    while(idx<len(line) and (line[idx] in ['\n','\t',' '])):
+                        idx +=1
+                    while(idx < len(line) and not (line[idx] in ['\n','\t',' '])):
+                        idx+=1
 
-            if not comment and word in ['copy','copy ','copy\n','copy\t'] and (txt[idx+1] in [' ','\n','\t',''] if len(txt)-1 > idx else True):
-                self.highlight_text(start=f"{line_count}.{word_count-4}", end=f"{line_count}.{word_count}", tag="copy")
-                copy_placed = True
-                # is_copy = True
+                    self.highlight_text(start=f"{line_cnt+1}.{word_count}", end=f"{line_cnt+1}.{idx}", tag="src")
+                    self.highlight_text(start=f"{line_cnt+1}.{idx+1}", end=f"{line_cnt+1}.end", tag="des")
+                    
+                    # continue
 
-            if char in [' ','\t']:
-
-                if not comment and copy_placed and src_placed and word not in ['','\n','\t',' ']:
-                    self.highlight_text(start=f"{line_count}.{word_count-len(word)}", end=f"{line_count}.{word_count}", tag="des")
-                
-                elif not comment and copy_placed and word not in ['','\n','\t',' ','copy','copy ','copy\n','copy\t']:
-                    src_placed = True
-                    self.highlight_text(start=f"{line_count}.{word_count-len(word)}", end=f"{line_count}.{word_count}", tag="src")
-
-                word = ''
-
-            if char == '\n':
-                if comment:
-                    self.highlight_text(start=f"{line_count}.{comment_start_count}", end=f"{line_count}.{word_count}", tag="comment")
-                    comment = False
-                elif copy_placed and src_placed and word not in ['','\n','\t',' ']:
-                    self.highlight_text(start=f"{line_count}.{word_count-len(word)}", end=f"{line_count}.{word_count}", tag="des")
-                elif copy_placed and word not in ['','\n','\t',' ','copy','copy ','copy\n','copy\t']:
-                    src_placed = True
-                    self.highlight_text(start=f"{line_count}.{word_count-len(word)}", end=f"{line_count}.{word_count}", tag="src")
-
-                word = ''
-                line_count += 1
-                word_count = 0
-                copy_placed, src_placed = False, False
-
-        if comment:
-            self.highlight_text(start=f"{line_count}.{comment_start_count}", end=f"{line_count}.{word_count}", tag="comment")
-            comment = False
+                idx += 1
+                if char in [" ","\t"]:
+                    word = ""
 
 def demo():
 
