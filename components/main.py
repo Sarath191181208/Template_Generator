@@ -7,6 +7,7 @@ cmd_dic = {
     'copy' : lambda to_path, from_path : from_write_to(to_path, from_path)
 }
 
+# support for inline comments
 def load_template(template_path, des_path=""):
     if (txt_arr := load_file(template_path, as_lines=True)):
 

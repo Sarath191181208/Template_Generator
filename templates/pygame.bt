@@ -10,4 +10,3 @@ test/requirements.txt
 copy templates/readme.txt test/README.md 
 
 test/main.py
-
