@@ -1,0 +1,13 @@
+# copy templates/pygame.txt     template/python/branch.py 
+copy    templates/demo.txt    test/python/test.py
+test/images/test.png 
+
+test/components/ 
+copy templates/buttons.txt test/components/buttons.py
+todo
+
+test/requirements.txt
+copy templates/readme.txt test/README.md 
+
+test/main.py
+
