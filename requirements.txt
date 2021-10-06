@@ -1,0 +1,3 @@
+tkinter
+pygame 
+auto-py-to-exe
