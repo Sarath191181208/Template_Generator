@@ -1,4 +1,4 @@
-
+[![Run on Repl.it](https://repl.it/badge/github/Sarath191181208/Template_Generator)](https://repl.it/github/Sarath191181208/Template_Generator)
 # Paint
 
 A simple pixel art application in **python** using **pygame** inspired by microsoft paint from windows xp.
@@ -90,4 +90,8 @@ Made the Line icon myself.
 - pygame  ``` pip install pygame ```
 - tkinter ``` default ```
 
-  
+## Run in Gitpod
+
+You can also run or edit Template Generator in Gitpod, a free online dev environment for GitHub:
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Sarath191181208/Template_Generator)

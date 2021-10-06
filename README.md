@@ -129,15 +129,10 @@ Icons are picked from Internet, made the file icon myself.
 ## Requirements
 
 - python `Make sure to add to path`
-- pygame `pip install pygame`
+- pygame `pip3 install pygame`
 - tkinter `default`
-- pyinstaller `pip install pyinstaller` this is to create an exe alternatively you can use auto-py-to-exe `pip install auto-py-to-exe`
-
-## Run in Gitpod
-
-You can also run or edit Template Generator in Gitpod, a free online dev environment for GitHub:
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Sarath191181208/Template_Generator)
+- pyinstaller `pip3 install pyinstaller` this is to create an exe alternatively you can use auto-py-to-exe `pip install auto-py-to-exe`
+- colorama `pip3 install colorama`
 
 ## Authors
 
