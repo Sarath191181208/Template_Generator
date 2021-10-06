@@ -19,6 +19,7 @@ clock = pygame.time.Clock()
 SCREEN_WIDTH, SCREEN_HEIGHT = 440, 600
 WIN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Boiler Plate Template Manager')
+pygame.display.set_icon(pygame.image.load("icon.png"))
 FPS = 60
 
 def PYtxt(txt: str, fontSize: int = 28, font: str = 'freesansbold.ttf', fontColour: tuple = (0, 0, 0)):

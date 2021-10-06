@@ -1,0 +1,21 @@
+from pygame import Color
+
+WHITE =         Color('#ffffff')
+WHITE_100 =     Color('#dddddd')
+GREAY =         Color('#868686')
+BLACK =         Color('#3c3c3c')
+GREEN =         Color('#1eb464')
+TURTLEGREEN =   Color('#50c85a')
+VIOLET =        Color('#9632dc')
+ORANGE =        Color('#dc7832')
+CYAN =          Color('#64d2b4')
+BLUE =          Color('#0a2864')
+PINK =          Color('#faa0a0')
+YELLOW =        Color('#ffeb00')
+AMBER =         Color('#dc0032')
+MAROON =        Color('#800000')
+OLIVE =         Color('#808000')
+TEAL =          Color('#008080')
+absBlack =      Color('#000000')
+
+TRANSPARENT = (0, 0, 0, 0)
