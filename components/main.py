@@ -7,11 +7,12 @@ cmd_dic = {
     'copy' : lambda to_path, from_path : from_write_to(to_path, from_path)
 }
 
-# support for inline comments
 def load_template(template_path, des_path=""):
     if (txt_arr := load_file(template_path, as_lines=True)):
-
+        pre_path = os.path.split(template_path)[0]
         for idx,line in enumerate(txt_arr):
+            saw_comment = False
+            from_path = ""
             line_sep = line.split(sep=" ")
             line_sep = [i.replace("\n","") for i in line_sep if i not in ['','\n']]
 
@@ -20,7 +21,7 @@ def load_template(template_path, des_path=""):
 
             cmd = line_sep[0].lower()
 
-            if "#" in cmd:
+            if ("#" in cmd) or saw_comment:
                 continue
 
             if cmd in list(cmd_dic.keys()) :
@@ -28,16 +29,22 @@ def load_template(template_path, des_path=""):
                 # if there is a command and a src and destination file
                 if len(line_sep)>1:
                     from_path = line_sep.pop(0)
+                    from_path = os.path.join(pre_path,from_path)
                     to_paths = line_sep
 
                     for to_path in to_paths:
+                        if "#" in to_path:
+                            saw_comment = True
+                            break
                         to_path = os.path.join(des_path , to_path)
                         cmd_dic[cmd](to_path, from_path)
-
                 else:
                     print(Fore.RED, f"\n Too few arguments in line : {Fore.BLUE}{idx} \n", Style.RESET_ALL)
             else:
                 for path in line_sep:
+                    if "#" in to_path:
+                        saw_comment = True
+                        break
                     path = os.path.join(des_path, path)
                     write_to(path=path, text='')
 
@@ -95,4 +102,7 @@ def from_write_to(to_path, from_path=None):
     elif from_path == '' or from_path is None:
         write_to(path=to_path, text='')
 
+
+if __name__ == "__main__":
+    load_template('F:\sarath\python/template_generator/templates\pygame.bt')
 # load_template('cmds.template')

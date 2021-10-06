@@ -12,24 +12,28 @@ class ScrollBar():
         self.MAX_HEIGHT = SCREEN_HEIGHT-height
         self.rect = pygame.Rect(self.x, self.y, width, height)
 
-
+        self.color = pygame.Color('#666666')
         self.clicked = False
     
     def draw(self):
-        GREAY = pygame.Color('#868686')
-        pygame.draw.rect(self.win, GREAY, self.rect)
+        pygame.draw.rect(self.win, self.color, self.rect)
     
     def update(self):
-        if pygame.mouse.get_pressed()[0] :
-            pos = pygame.mouse.get_pos()
-            if self.clicked or self.rect.collidepoint(pos):
+        pos = pygame.mouse.get_pos()
+        if self.clicked or self.rect.collidepoint(pos):
+            if pygame.mouse.get_pressed()[0] :
                 self.clicked = True
                 y = pos[1] - self.rect.width
                 if y > 5 and y < self.MAX_HEIGHT:
                     self.y = y
                     self.rect = pygame.Rect(self.x, self.y, self.rect.width, self.rect.height)
+            else:
+                self.clicked = False
+            self.color = pygame.Color('#868686')
         else:
             self.clicked = False
+            self.color = pygame.Color('#666666')
+
         
         self.draw()
 
