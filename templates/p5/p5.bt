@@ -1,0 +1,10 @@
+# copy pygame.txt  python/branch.py  ==> copying a file to other
+# test/images/                       ==> creating a folder
+# this.txt                           ==> creating a file
+
+copy index.txt index.html
+copy p5js.txt p5.js
+copy style.txt style.css
+copy sketch.txt sketch.js
+
+
